@@ -23,7 +23,7 @@ export const documentRouter = createTRPCRouter({
             notes: input.notes,
           },
         })
-        .catch((err) => {
+        .catch((err: Error) => {
           throw new TRPCError({
             code: "INTERNAL_SERVER_ERROR",
             message: err.message,
@@ -53,7 +53,7 @@ export const documentRouter = createTRPCRouter({
           }
           return document;
         })
-        .catch((err) => {
+        .catch((err: Error) => {
           throw new TRPCError({
             code: "INTERNAL_SERVER_ERROR",
             message: err.message,
@@ -82,7 +82,7 @@ export const documentRouter = createTRPCRouter({
             },
           },
         })
-        .catch((err) => {
+        .catch((err: Error) => {
           throw new TRPCError({
             code: "INTERNAL_SERVER_ERROR",
             message: err.message,

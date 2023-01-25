@@ -4,14 +4,14 @@ import { api } from "../../utils/api"
 const ClientForm = () => {
   const [name, setTitle] = useState<string>('')
   const [slug, setSlug] = useState<string>('')
-  const { mutateAsync: createClient, isLoading } = api.client.createClient.useMutation({
+  const { mutate: createClient, isLoading } = api.client.createClient.useMutation({
     onSuccess: () => {
       setTitle('')
       setSlug('')
     }
   })
-  const handleSubmit = async () => {
-    await createClient({ name, slug })
+  const handleSubmit = () => {
+    createClient({ name, slug })
   }
   return (
     <div className="container flex flex-col justify-center items-center bg-neutral-700 border rounded-xl border-black ">

@@ -8,7 +8,7 @@ const CreateItemForm = () => {
   const [title, setTitle] = useState<string>('')
   const [client, setClient] = useState<Client | null>(null)
   const [notes, setNotes] = useState<string>('')
-  const { mutateAsync: createItem, isLoading } = api.document.createDocument.useMutation(
+  const { mutate: createItem, isLoading } = api.document.createDocument.useMutation(
     {
       onSuccess: () => {
         setTitle('')
@@ -17,9 +17,9 @@ const CreateItemForm = () => {
       }
     }
   )
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     if (client) {
-      await createItem({
+      createItem({
         title,
         clientId: client.id,
         notes,

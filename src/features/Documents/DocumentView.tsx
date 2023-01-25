@@ -11,7 +11,7 @@ const DocumentView = ({ document }: { document: DocumentView }) => {
     setTitle(document?.title)
     setNotes(document?.notes)
   }
-  const { mutateAsync: updateDocument, isLoading: changesPending } = api.document.updateDocument.useMutation({
+  const { mutate: updateDocument, isLoading: changesPending } = api.document.updateDocument.useMutation({
     onSuccess: (data) => {
       setEditMode(false)
       setTitle(data.title)
@@ -19,8 +19,8 @@ const DocumentView = ({ document }: { document: DocumentView }) => {
       setLastSaved(data.updatedAt)
     }
   })
-  const saveHandler = async () => {
-    await updateDocument({ id: document.id, title, notes })
+  const saveHandler = () => {
+    updateDocument({ id: document.id, title, notes })
   }
   if (!editMode) {
     return (

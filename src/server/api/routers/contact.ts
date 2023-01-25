@@ -25,7 +25,7 @@ export const contactRouter = createTRPCRouter({
             },
           },
         })
-        .catch((err) => {
+        .catch((err: Error) => {
           throw new TRPCError({
             code: "INTERNAL_SERVER_ERROR",
             message: err.message,

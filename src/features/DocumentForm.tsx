@@ -1,20 +1,20 @@
 import { useState } from "react"
 import { api } from "../utils/api"
 
-const DocumentForm = ({ clientId, refetchCallback }: { clientId: string, refetchCallback: () => void }) => {
+const DocumentForm = ({ clientId, refetchCallback }: { clientId: string, refetchCallback: () => Promise<void> }) => {
   const [title, setTitle] = useState<string>('')
   const [notes, setNotes] = useState<string>('')
-  const { mutateAsync: createItem, isLoading } = api.document.createDocument.useMutation(
+  const { mutate: createItem, isLoading } = api.document.createDocument.useMutation(
     {
-      onSuccess: () => {
+      onSuccess: async () => {
         setTitle('')
         setNotes('')
-        refetchCallback()
+        await refetchCallback()
       }
     }
   )
-  const handleSubmit = async () => {
-    await createItem({
+  const handleSubmit = () => {
+    createItem({
       title,
       clientId,
       notes,

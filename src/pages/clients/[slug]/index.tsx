@@ -35,9 +35,9 @@ const ClientPage = () => {
     initialData: []
   })
   const [showCreateDocument, setShowCreateDocument] = useState(false)
-  const refetchCallback = () => {
-    refetchCreatedDocs()
-    refetchUpdatedDocs()
+  const refetchCallback = async () => {
+    await refetchCreatedDocs()
+    await refetchUpdatedDocs()
   }
   if (isError) {
     return <div className="min-h-screen bg-black flex flex-col justify-center items-center">

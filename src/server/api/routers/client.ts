@@ -1,7 +1,7 @@
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
-import { createTRPCRouter, publicProcedure, protectedProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const clientRouter = createTRPCRouter({
   createClient: protectedProcedure
@@ -11,15 +11,15 @@ export const clientRouter = createTRPCRouter({
         slug: z.string(),
       })
     )
-    .mutation(({ input, ctx }) => {
-      return ctx.prisma.client
+    .mutation(async ({ input, ctx }) => {
+      return await ctx.prisma.client
         .create({
           data: {
             name: input.name,
             slug: input.slug,
           },
         })
-        .catch((err) => {
+        .catch((err: Error) => {
           throw new TRPCError({
             code: "INTERNAL_SERVER_ERROR",
             message: err.message,
@@ -27,7 +27,7 @@ export const clientRouter = createTRPCRouter({
         });
     }),
   getClients: protectedProcedure.query(async ({ ctx }) => {
-    return await ctx.prisma.client.findMany().catch((err) => {
+    return await ctx.prisma.client.findMany().catch((err: Error) => {
       throw new TRPCError({
         code: "INTERNAL_SERVER_ERROR",
         message: err.message,
@@ -56,7 +56,7 @@ export const clientRouter = createTRPCRouter({
             message: "Client not found",
           });
         })
-        .catch((err) => {
+        .catch((err: Error) => {
           throw new TRPCError({
             code: "INTERNAL_SERVER_ERROR",
             message: err.message,
