@@ -20,6 +20,48 @@ model Example {
     updatedAt DateTime @updatedAt
 }
 
+model Client {
+    id        String     @id @default(cuid())
+    name      String
+    slug      String     @unique
+    expires   DateTime?
+    Documents Document[]
+    Contact   Contact[]
+    Tenant    Tenant[]
+}
+
+model Document {
+    id        String   @id @default(cuid())
+    title     String
+    notes     String
+    url       String?
+    clientId  String
+    client    Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Contact {
+    id        String   @id @default(cuid())
+    name      String
+    email     String
+    phone     String?
+    clientId  String
+    client    Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Tenant {
+    id                String   @id
+    name              String
+    defaultDomainName String?
+    clientId          String
+    client            Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+    createdAt         DateTime @default(now())
+    updatedAt         DateTime @updatedAt
+}
+
 // Necessary for Next auth
 model Account {
     id                String  @id @default(cuid())
