@@ -29,7 +29,7 @@ const ClientPage = () => {
   }, {
     initialData: []
   })
-  const { data: allDocuments, } = api.document.getRecentlyCreatedDocuments.useQuery({
+  const { data: allDocuments, } = api.document.getAllDocuments.useQuery({
     clientId: client?.id
   }, {
     initialData: []

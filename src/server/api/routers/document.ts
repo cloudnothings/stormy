@@ -4,6 +4,24 @@ import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const documentRouter = createTRPCRouter({
+  getAllDocuments: protectedProcedure
+    .input(
+      z.object({
+        clientId: z.string().nullish(),
+      })
+    )
+    .query(async ({ input, ctx }) => {
+      if (input.clientId) {
+        return await ctx.prisma.document.findMany({
+          where: {
+            clientId: input.clientId,
+          },
+          orderBy: {
+            createdAt: "desc",
+          },
+        });
+      }
+    }),
   updateDocument: protectedProcedure
     .input(
       z.object({
