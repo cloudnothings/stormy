@@ -13,7 +13,7 @@ const ClientsPage = () => {
         <meta name="description" content="Clients Page" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex min-h-screen flex-col bg-neutral-900">
+      <main className="flex min-h-screen flex-col items-center bg-neutral-900">
         <Navbar sessionData={sessionData} />
         <ClientTable />
       </main>

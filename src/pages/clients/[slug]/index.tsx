@@ -64,10 +64,10 @@ const ClientPage = () => {
             {showCreateDocument && (
               <DocumentForm clientId={client.id} refetchCallback={refetchCallback} />)}
             {recentlyCreatedDocuments && (
-              <RecentlyCreatedDocuments clientSlug={slug as string} documents={recentlyCreatedDocuments} />
+              <RecentlyCreatedDocuments documents={recentlyCreatedDocuments} />
             )}
             {recentlyUpdatedDocuments && (
-              <RecentlyUpdatedDocuments clientSlug={slug as string} documents={recentlyUpdatedDocuments} />
+              <RecentlyUpdatedDocuments documents={recentlyUpdatedDocuments} />
             )}
             {allDocuments && (
               <AllDocuments clientSlug={client.slug} documents={allDocuments} />

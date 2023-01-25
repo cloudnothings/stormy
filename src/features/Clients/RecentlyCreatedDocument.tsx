@@ -1,24 +1,25 @@
+import { Popover } from "@headlessui/react"
 import { Document } from "@prisma/client"
-import Link from "next/link"
+import DocumentView from "../Documents/DocumentView"
 
-
-const RecentlyCreatedDocuments = ({ clientSlug, documents }: { clientSlug: string, documents: Document[] }) => {
+const RecentlyCreatedDocuments = ({ documents }: { documents: Document[] }) => {
   return (
     <div className="container flex flex-col items-start">
-      <div className="flex flex-col">
-        <span className="text-white font-semibold">
-          Recently Created Items
-        </span>
-        <ul>
-          {documents.map((document) => (
-            <li key={document.id} className="child:text-neutral-400 child:hover:text-white ml-2">
-              <Link href={`/clients/${clientSlug}/documents/${document.id}`}>
-                {document.title} - created {document.createdAt.toLocaleString()}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <span className="text-white font-semibold">
+        Recently Created Items
+      </span>
+      <ul>
+        {documents.map((document) => (
+          <li key={document.id}>
+            <Popover >
+              <Popover.Button className="text-neutral-400 hover:text-white ml-2">{document.title} - created {document.createdAt.toLocaleString()}</Popover.Button>
+              <Popover.Panel>
+                <DocumentView document={document} />
+              </Popover.Panel>
+            </Popover>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }

@@ -24,8 +24,8 @@ const DocumentView = ({ document }: { document: DocumentView }) => {
   }
   if (!editMode) {
     return (
-      <div className='container flex flex-col items-center'>
-        <div className="border border-neutral-700 rounded-lg p-4 flex flex-col w-11/12">
+      <div className='flex flex-col max-w-lg'>
+        <div className="border border-neutral-700 rounded-lg p-4 flex flex-col">
           <span className="text-white font-medium mb-4 text-xl">{title} - last edited {lastSaved.toLocaleDateString()}</span>
           <body className="text-white  mb-4">{notes}</body>
           <div className="flex flex-row justify-end">
@@ -39,8 +39,8 @@ const DocumentView = ({ document }: { document: DocumentView }) => {
   }
   return (
     <>
-      <div className='container flex flex-col items-center'>
-        <div className="border border-neutral-700 rounded-lg p-4 flex flex-col w-11/12">
+      <div className='flex flex-col max-w-lg'>
+        <div className="border border-neutral-700 rounded-lg p-4 flex flex-col">
           <input className="text-white bg-transparent font-medium mb-4 text-xl"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -48,6 +48,7 @@ const DocumentView = ({ document }: { document: DocumentView }) => {
           ></input>
           <textarea className="text-white bg-transparent mb-4"
             value={notes}
+            cols={94}
             onChange={(e) => setNotes(e.target.value)}
             disabled={changesPending}
           ></textarea>
